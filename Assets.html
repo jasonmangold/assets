@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Worth Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #34495e;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Net Worth Calculator</h1>
+        <form id="assetForm">
+            <div class="input-group">
+                <label for="home">Home Value ($)</label>
+                <input type="number" id="home" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="realEstate">Other Real Estate ($)</label>
+                <input type="number" id="realEstate" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="personal">Personal Property ($)</label>
+                <input type="number" id="personal" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="vehicles">Vehicles ($)</label>
+                <input type="number" id="vehicles" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="cash">Money Market/CD/Cash ($)</label>
+                <input type="number" id="cash" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="annuities">Annuities ($)</label>
+                <input type="number" id="annuities" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="retirement">401(k)/403(b) ($)</label>
+                <input type="number" id="retirement" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="traditionalIRA">Traditional IRA ($)</label>
+                <input type="number" id="traditionalIRA" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="rothIRA">Roth IRA ($)</label>
+                <input type="number" id="rothIRA" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="savings529">529 Savings ($)</label>
+                <input type="number" id="savings529" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="investments">Stocks/Bonds/Mutual Funds ($)</label>
+                <input type="number" id="investments" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="insurance">Cash Value of Life Insurance ($)</label>
+                <input type="number" id="insurance" min="0" step="0.01">
+            </div>
+            <div class="input-group">
+                <label for="futureIncome">Future Income ($)</label>
+                <input type="number" id="futureIncome" min="0" step="0.01">
+            </div>
+            <button type="submit">Calculate Total</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('assetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const inputs = [
+                'home', 'realEstate', 'personal', 'vehicles', 'cash',
+                'annuities', 'retirement', 'traditionalIRA', 'rothIRA',
+                'savings529', 'investments', 'insurance', 'futureIncome'
+            ];
+            
+            let total = 0;
+            
+            inputs.forEach(inputId => {
+                const value = parseFloat(document.getElementById(inputId).value) || 0;
+                total += value;
+            });
+            
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+            });
+            
+            document.getElementById('result').textContent = 
+                `Total Assets: ${formatter.format(total)}`;
+        });
+    </script>
+</body>
+</html>
